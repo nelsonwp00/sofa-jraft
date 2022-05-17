@@ -63,8 +63,8 @@ public class CounterClient {
 
         final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
         System.out.println("Leader is " + leader);
-        final int n = interval + 2;
-        final CountDownLatch latch = new CountDownLatch(n);
+        final int n = interval;
+        final CountDownLatch latch = new CountDownLatch(n + 1);
         System.out.println("Before start, checking current counter value ... \n");
         get(cliClientService, leader, latch);
 
