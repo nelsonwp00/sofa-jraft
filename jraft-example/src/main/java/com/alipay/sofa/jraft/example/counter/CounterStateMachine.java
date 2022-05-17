@@ -36,13 +36,6 @@ import com.alipay.sofa.jraft.storage.snapshot.SnapshotReader;
 import com.alipay.sofa.jraft.storage.snapshot.SnapshotWriter;
 import com.alipay.sofa.jraft.util.Utils;
 
-/**
- * Counter state machine.
- *
- * @author boyan (boyan@alibaba-inc.com)
- *
- * 2018-Apr-09 4:52:31 PM
- */
 public class CounterStateMachine extends StateMachineAdapter {
 
     private static final Logger LOG        = LoggerFactory.getLogger(CounterStateMachine.class);

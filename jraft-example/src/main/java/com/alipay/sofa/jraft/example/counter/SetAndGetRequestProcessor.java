@@ -21,13 +21,6 @@ import com.alipay.sofa.jraft.example.counter.CounterOutter.SetAndGetRequest;
 import com.alipay.sofa.jraft.rpc.RpcContext;
 import com.alipay.sofa.jraft.rpc.RpcProcessor;
 
-/**
- * IncrementAndGetRequest processor.
- *
- * @author boyan (boyan@alibaba-inc.com)
- *
- * 2018-Apr-09 5:43:57 PM
- */
 public class SetAndGetRequestProcessor implements RpcProcessor<SetAndGetRequest> {
 
     private final CounterService counterService;

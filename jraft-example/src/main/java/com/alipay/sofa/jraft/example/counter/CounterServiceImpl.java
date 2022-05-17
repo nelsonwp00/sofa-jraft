@@ -33,9 +33,6 @@ import com.alipay.sofa.jraft.rhea.StoreEngineHelper;
 import com.alipay.sofa.jraft.rhea.options.StoreEngineOptions;
 import com.alipay.sofa.jraft.util.BytesUtil;
 
-/**
- * @author likun (saimu.msm@antfin.com)
- */
 public class CounterServiceImpl implements CounterService {
     private static final Logger LOG = LoggerFactory.getLogger(CounterServiceImpl.class);
 

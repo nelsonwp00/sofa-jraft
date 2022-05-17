@@ -29,13 +29,6 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Counter server that keeps a counter value in a raft group.
- *
- * @author boyan (boyan@alibaba-inc.com)
- * <p>
- * 2018-Apr-09 4:51:02 PM
- */
 public class CounterServer {
 
     private RaftGroupService    raftGroupService;

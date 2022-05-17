@@ -21,13 +21,6 @@ import com.alipay.sofa.jraft.rpc.RpcContext;
 import com.alipay.sofa.jraft.example.counter.CounterOutter.GetValueRequest;
 import com.alipay.sofa.jraft.rpc.RpcProcessor;
 
-/**
- * GetValueRequest processor.
- *
- * @author boyan (boyan@alibaba-inc.com)
- *
- * 2018-Apr-09 5:48:33 PM
- */
 public class GetValueRequestProcessor implements RpcProcessor<GetValueRequest> {
 
     private final CounterService counterService;

@@ -19,9 +19,6 @@ package com.alipay.sofa.jraft.example.counter;
 import com.alipay.sofa.jraft.Closure;
 import com.alipay.sofa.jraft.example.counter.CounterOutter.ValueResponse;
 
-/**
- * @author likun (saimu.msm@antfin.com)
- */
 public abstract class CounterClosure implements Closure {
 
     private ValueResponse    valueResponse;
