@@ -14,13 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alipay.sofa.jraft.example.counter.rpc;
+package com.alipay.sofa.jraft.example.counter;
 
 import com.alipay.sofa.jraft.Status;
-import com.alipay.sofa.jraft.example.counter.CounterClosure;
-import com.alipay.sofa.jraft.example.counter.CounterService;
 import com.alipay.sofa.jraft.rpc.RpcContext;
-import com.alipay.sofa.jraft.example.counter.rpc.CounterOutter.GetValueRequest;
+import com.alipay.sofa.jraft.example.counter.CounterOutter.GetValueRequest;
 import com.alipay.sofa.jraft.rpc.RpcProcessor;
 
 /**
