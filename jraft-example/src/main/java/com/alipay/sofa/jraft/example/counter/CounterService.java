@@ -16,11 +16,6 @@
  */
 package com.alipay.sofa.jraft.example.counter;
 
-/**
- * The counter service supporting query and count function.
- *
- * @author likun (saimu.msm@antfin.com)
- */
 public interface CounterService {
 
     /**
