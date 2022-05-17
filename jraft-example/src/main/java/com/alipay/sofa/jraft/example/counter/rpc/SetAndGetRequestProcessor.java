@@ -19,7 +19,7 @@ package com.alipay.sofa.jraft.example.counter.rpc;
 import com.alipay.sofa.jraft.Status;
 import com.alipay.sofa.jraft.example.counter.CounterClosure;
 import com.alipay.sofa.jraft.example.counter.CounterService;
-import com.alipay.sofa.jraft.example.counter.rpc.CounterOutter.IncrementAndGetRequest;
+import com.alipay.sofa.jraft.example.counter.rpc.CounterOutter.SetAndGetRequest;
 import com.alipay.sofa.jraft.rpc.RpcContext;
 import com.alipay.sofa.jraft.rpc.RpcProcessor;
 
@@ -30,17 +30,17 @@ import com.alipay.sofa.jraft.rpc.RpcProcessor;
  *
  * 2018-Apr-09 5:43:57 PM
  */
-public class IncrementAndGetRequestProcessor implements RpcProcessor<IncrementAndGetRequest> {
+public class SetAndGetRequestProcessor implements RpcProcessor<SetAndGetRequest> {
 
     private final CounterService counterService;
 
-    public IncrementAndGetRequestProcessor(CounterService counterService) {
+    public SetAndGetRequestProcessor(CounterService counterService) {
         super();
         this.counterService = counterService;
     }
 
     @Override
-    public void handleRequest(final RpcContext rpcCtx, final IncrementAndGetRequest request) {
+    public void handleRequest(final RpcContext rpcCtx, final SetAndGetRequest request) {
         final CounterClosure closure = new CounterClosure() {
             @Override
             public void run(Status status) {
@@ -48,11 +48,11 @@ public class IncrementAndGetRequestProcessor implements RpcProcessor<IncrementAn
             }
         };
 
-        this.counterService.incrementAndGet(request.getDelta(), closure);
+        this.counterService.setAndGet(request.getDelta(), closure);
     }
 
     @Override
     public String interest() {
-        return IncrementAndGetRequest.class.getName();
+        return SetAndGetRequest.class.getName();
     }
 }

@@ -93,8 +93,8 @@ public class CounterServiceImpl implements CounterService {
     }
 
     @Override
-    public void incrementAndGet(final long delta, final CounterClosure closure) {
-        applyOperation(CounterOperation.createIncrement(delta), closure);
+    public void setAndGet(final long delta, final CounterClosure closure) {
+        applyOperation(CounterOperation.createSet(delta), closure);
     }
 
     private void applyOperation(final CounterOperation op, final CounterClosure closure) {

@@ -37,8 +37,8 @@ public class CounterGrpcHelper {
             RpcFactoryHelper.rpcFactory().registerProtobufSerializer(CounterOutter.GetValueRequest.class.getName(),
                 CounterOutter.GetValueRequest.getDefaultInstance());
             RpcFactoryHelper.rpcFactory().registerProtobufSerializer(
-                CounterOutter.IncrementAndGetRequest.class.getName(),
-                CounterOutter.IncrementAndGetRequest.getDefaultInstance());
+                CounterOutter.SetAndGetRequest.class.getName(),
+                CounterOutter.SetAndGetRequest.getDefaultInstance());
             RpcFactoryHelper.rpcFactory().registerProtobufSerializer(CounterOutter.ValueResponse.class.getName(),
                 CounterOutter.ValueResponse.getDefaultInstance());
 
@@ -47,7 +47,7 @@ public class CounterGrpcHelper {
                 Method registerRespInstance = clazz.getMethod("registerRespInstance", String.class, Message.class);
                 registerRespInstance.invoke(null, CounterOutter.GetValueRequest.class.getName(),
                     CounterOutter.ValueResponse.getDefaultInstance());
-                registerRespInstance.invoke(null, CounterOutter.IncrementAndGetRequest.class.getName(),
+                registerRespInstance.invoke(null, CounterOutter.SetAndGetRequest.class.getName(),
                     CounterOutter.ValueResponse.getDefaultInstance());
             } catch (Exception e) {
                 LOG.error("Failed to init grpc server", e);

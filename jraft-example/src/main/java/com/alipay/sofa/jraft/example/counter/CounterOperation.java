@@ -30,7 +30,7 @@ public class CounterOperation implements Serializable {
     /** Get value */
     public static final byte  GET              = 0x01;
     /** Increment and get value */
-    public static final byte  INCREMENT        = 0x02;
+    public static final byte SET = 0x02;
 
     private byte              op;
     private long              delta;
@@ -39,8 +39,8 @@ public class CounterOperation implements Serializable {
         return new CounterOperation(GET);
     }
 
-    public static CounterOperation createIncrement(final long delta) {
-        return new CounterOperation(INCREMENT, delta);
+    public static CounterOperation createSet(final long delta) {
+        return new CounterOperation(SET, delta);
     }
 
     public CounterOperation(byte op) {

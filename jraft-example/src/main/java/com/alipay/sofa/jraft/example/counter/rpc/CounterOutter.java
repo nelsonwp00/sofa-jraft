@@ -529,17 +529,17 @@ public final class CounterOutter {
     /**
      * Protobuf type {@code jraft.IncrementAndGetRequest}
      */
-    public static final class IncrementAndGetRequest extends com.google.protobuf.GeneratedMessageV3 implements
+    public static final class SetAndGetRequest extends com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:jraft.IncrementAndGetRequest)
                                                                                                    IncrementAndGetRequestOrBuilder {
         private static final long serialVersionUID = 0L;
 
         // Use IncrementAndGetRequest.newBuilder() to construct.
-        private IncrementAndGetRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        private SetAndGetRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
             super(builder);
         }
 
-        private IncrementAndGetRequest() {
+        private SetAndGetRequest() {
             delta_ = 0L;
         }
 
@@ -548,8 +548,8 @@ public final class CounterOutter {
             return this.unknownFields;
         }
 
-        private IncrementAndGetRequest(com.google.protobuf.CodedInputStream input,
-                                       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        private SetAndGetRequest(com.google.protobuf.CodedInputStream input,
+                                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                                                                                                    throws com.google.protobuf.InvalidProtocolBufferException {
             this();
             if (extensionRegistry == null) {
@@ -595,7 +595,7 @@ public final class CounterOutter {
 
         protected FieldAccessorTable internalGetFieldAccessorTable() {
             return CounterOutter.internal_static_jraft_IncrementAndGetRequest_fieldAccessorTable
-                .ensureFieldAccessorsInitialized(IncrementAndGetRequest.class, Builder.class);
+                .ensureFieldAccessorsInitialized(SetAndGetRequest.class, Builder.class);
         }
 
         private int             bitField0_;
@@ -659,10 +659,10 @@ public final class CounterOutter {
             if (obj == this) {
                 return true;
             }
-            if (!(obj instanceof IncrementAndGetRequest)) {
+            if (!(obj instanceof SetAndGetRequest)) {
                 return super.equals(obj);
             }
-            IncrementAndGetRequest other = (IncrementAndGetRequest) obj;
+            SetAndGetRequest other = (SetAndGetRequest) obj;
 
             boolean result = true;
             result = result && (hasDelta() == other.hasDelta());
@@ -689,67 +689,67 @@ public final class CounterOutter {
             return hash;
         }
 
-        public static IncrementAndGetRequest parseFrom(java.nio.ByteBuffer data)
+        public static SetAndGetRequest parseFrom(java.nio.ByteBuffer data)
                                                                                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
-        public static IncrementAndGetRequest parseFrom(java.nio.ByteBuffer data,
-                                                       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        public static SetAndGetRequest parseFrom(java.nio.ByteBuffer data,
+                                                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                                                                                                                    throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
-        public static IncrementAndGetRequest parseFrom(com.google.protobuf.ByteString data)
+        public static SetAndGetRequest parseFrom(com.google.protobuf.ByteString data)
                                                                                            throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
-        public static IncrementAndGetRequest parseFrom(com.google.protobuf.ByteString data,
-                                                       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        public static SetAndGetRequest parseFrom(com.google.protobuf.ByteString data,
+                                                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                                                                                                                    throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
-        public static IncrementAndGetRequest parseFrom(byte[] data)
+        public static SetAndGetRequest parseFrom(byte[] data)
                                                                    throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
-        public static IncrementAndGetRequest parseFrom(byte[] data,
-                                                       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        public static SetAndGetRequest parseFrom(byte[] data,
+                                                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                                                                                                                    throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
-        public static IncrementAndGetRequest parseFrom(java.io.InputStream input) throws java.io.IOException {
+        public static SetAndGetRequest parseFrom(java.io.InputStream input) throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3.parseWithIOException(PARSER, input);
         }
 
-        public static IncrementAndGetRequest parseFrom(java.io.InputStream input,
-                                                       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        public static SetAndGetRequest parseFrom(java.io.InputStream input,
+                                                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                                                                                                                    throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3.parseWithIOException(PARSER, input, extensionRegistry);
         }
 
-        public static IncrementAndGetRequest parseDelimitedFrom(java.io.InputStream input) throws java.io.IOException {
+        public static SetAndGetRequest parseDelimitedFrom(java.io.InputStream input) throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3.parseDelimitedWithIOException(PARSER, input);
         }
 
-        public static IncrementAndGetRequest parseDelimitedFrom(java.io.InputStream input,
-                                                                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        public static SetAndGetRequest parseDelimitedFrom(java.io.InputStream input,
+                                                          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                                                                                                                             throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3.parseDelimitedWithIOException(PARSER, input,
                 extensionRegistry);
         }
 
-        public static IncrementAndGetRequest parseFrom(com.google.protobuf.CodedInputStream input)
+        public static SetAndGetRequest parseFrom(com.google.protobuf.CodedInputStream input)
                                                                                                   throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3.parseWithIOException(PARSER, input);
         }
 
-        public static IncrementAndGetRequest parseFrom(com.google.protobuf.CodedInputStream input,
-                                                       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        public static SetAndGetRequest parseFrom(com.google.protobuf.CodedInputStream input,
+                                                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                                                                                                                    throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3.parseWithIOException(PARSER, input, extensionRegistry);
         }
@@ -762,7 +762,7 @@ public final class CounterOutter {
             return DEFAULT_INSTANCE.toBuilder();
         }
 
-        public static Builder newBuilder(IncrementAndGetRequest prototype) {
+        public static Builder newBuilder(SetAndGetRequest prototype) {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
         }
 
@@ -788,7 +788,7 @@ public final class CounterOutter {
 
             protected FieldAccessorTable internalGetFieldAccessorTable() {
                 return CounterOutter.internal_static_jraft_IncrementAndGetRequest_fieldAccessorTable
-                    .ensureFieldAccessorsInitialized(IncrementAndGetRequest.class, Builder.class);
+                    .ensureFieldAccessorsInitialized(SetAndGetRequest.class, Builder.class);
             }
 
             // Construct using com.alipay.sofa.jraft.example.counter.rpc.CounterOutter.IncrementAndGetRequest.newBuilder()
@@ -817,20 +817,20 @@ public final class CounterOutter {
                 return CounterOutter.internal_static_jraft_IncrementAndGetRequest_descriptor;
             }
 
-            public IncrementAndGetRequest getDefaultInstanceForType() {
-                return IncrementAndGetRequest.getDefaultInstance();
+            public SetAndGetRequest getDefaultInstanceForType() {
+                return SetAndGetRequest.getDefaultInstance();
             }
 
-            public IncrementAndGetRequest build() {
-                IncrementAndGetRequest result = buildPartial();
+            public SetAndGetRequest build() {
+                SetAndGetRequest result = buildPartial();
                 if (!result.isInitialized()) {
                     throw newUninitializedMessageException(result);
                 }
                 return result;
             }
 
-            public IncrementAndGetRequest buildPartial() {
-                IncrementAndGetRequest result = new IncrementAndGetRequest(this);
+            public SetAndGetRequest buildPartial() {
+                SetAndGetRequest result = new SetAndGetRequest(this);
                 int from_bitField0_ = bitField0_;
                 int to_bitField0_ = 0;
                 if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -868,16 +868,16 @@ public final class CounterOutter {
             }
 
             public Builder mergeFrom(com.google.protobuf.Message other) {
-                if (other instanceof IncrementAndGetRequest) {
-                    return mergeFrom((IncrementAndGetRequest) other);
+                if (other instanceof SetAndGetRequest) {
+                    return mergeFrom((SetAndGetRequest) other);
                 } else {
                     super.mergeFrom(other);
                     return this;
                 }
             }
 
-            public Builder mergeFrom(IncrementAndGetRequest other) {
-                if (other == IncrementAndGetRequest.getDefaultInstance())
+            public Builder mergeFrom(SetAndGetRequest other) {
+                if (other == SetAndGetRequest.getDefaultInstance())
                     return this;
                 if (other.hasDelta()) {
                     setDelta(other.getDelta());
@@ -897,11 +897,11 @@ public final class CounterOutter {
             public Builder mergeFrom(com.google.protobuf.CodedInputStream input,
                                      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                                                                                                  throws java.io.IOException {
-                IncrementAndGetRequest parsedMessage = null;
+                SetAndGetRequest parsedMessage = null;
                 try {
                     parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
                 } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-                    parsedMessage = (IncrementAndGetRequest) e.getUnfinishedMessage();
+                    parsedMessage = (SetAndGetRequest) e.getUnfinishedMessage();
                     throw e.unwrapIOException();
                 } finally {
                     if (parsedMessage != null) {
@@ -961,36 +961,36 @@ public final class CounterOutter {
         }
 
         // @@protoc_insertion_point(class_scope:jraft.IncrementAndGetRequest)
-        private static final IncrementAndGetRequest DEFAULT_INSTANCE;
+        private static final SetAndGetRequest DEFAULT_INSTANCE;
         static {
-            DEFAULT_INSTANCE = new IncrementAndGetRequest();
+            DEFAULT_INSTANCE = new SetAndGetRequest();
         }
 
-        public static IncrementAndGetRequest getDefaultInstance() {
+        public static SetAndGetRequest getDefaultInstance() {
             return DEFAULT_INSTANCE;
         }
 
         @Deprecated
-        public static final com.google.protobuf.Parser<IncrementAndGetRequest> PARSER = new com.google.protobuf.AbstractParser<IncrementAndGetRequest>() {
-                                                                                          public IncrementAndGetRequest parsePartialFrom(com.google.protobuf.CodedInputStream input,
-                                                                                                                                         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        public static final com.google.protobuf.Parser<SetAndGetRequest> PARSER = new com.google.protobuf.AbstractParser<SetAndGetRequest>() {
+                                                                                          public SetAndGetRequest parsePartialFrom(com.google.protobuf.CodedInputStream input,
+                                                                                                                                   com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                                                                                                                                                                                                      throws com.google.protobuf.InvalidProtocolBufferException {
-                                                                                              return new IncrementAndGetRequest(
+                                                                                              return new SetAndGetRequest(
                                                                                                   input,
                                                                                                   extensionRegistry);
                                                                                           }
                                                                                       };
 
-        public static com.google.protobuf.Parser<IncrementAndGetRequest> parser() {
+        public static com.google.protobuf.Parser<SetAndGetRequest> parser() {
             return PARSER;
         }
 
         @Override
-        public com.google.protobuf.Parser<IncrementAndGetRequest> getParserForType() {
+        public com.google.protobuf.Parser<SetAndGetRequest> getParserForType() {
             return PARSER;
         }
 
-        public IncrementAndGetRequest getDefaultInstanceForType() {
+        public SetAndGetRequest getDefaultInstanceForType() {
             return DEFAULT_INSTANCE;
         }
 

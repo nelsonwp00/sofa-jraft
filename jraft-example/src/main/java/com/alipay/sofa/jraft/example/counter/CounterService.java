@@ -33,5 +33,5 @@ public interface CounterService {
     /**
      * Add delta to counter then get value
      */
-    void incrementAndGet(final long delta, final CounterClosure closure);
+    void setAndGet(final long delta, final CounterClosure closure);
 }
