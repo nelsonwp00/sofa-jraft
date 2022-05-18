@@ -41,13 +41,21 @@ public abstract class CounterClosure implements Closure {
     }
 
     protected void failure(final String errorMsg, final String redirect) {
-        final ValueResponse response = ValueResponse.newBuilder().setSuccess(false).setErrorMsg(errorMsg)
-            .setRedirect(redirect).build();
+        final ValueResponse response = ValueResponse.newBuilder()
+                .setSuccess(false)
+                .setErrorMsg(errorMsg)
+                .setRedirect(redirect)
+                .build();
+
         setValueResponse(response);
     }
 
     protected void success(final long value) {
-        final ValueResponse response = ValueResponse.newBuilder().setValue(value).setSuccess(true).build();
+        final ValueResponse response = ValueResponse.newBuilder()
+                .setValue(value)
+                .setSuccess(true)
+                .build();
+
         setValueResponse(response);
     }
 }

@@ -24,13 +24,13 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CounterSnapshotFile {
+public class SnapshotFile {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CounterSnapshotFile.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SnapshotFile.class);
 
     private String              path;
 
-    public CounterSnapshotFile(String path) {
+    public SnapshotFile(String path) {
         super();
         this.path = path;
     }

@@ -35,8 +35,7 @@ public class CounterServer {
     private Node                node;
     private CounterStateMachine fsm;
 
-    public CounterServer(final String dataPath, final String groupId, final PeerId serverId,
-                         final NodeOptions nodeOptions) throws IOException {
+    public CounterServer(final String dataPath, final String groupId, final PeerId serverId, final NodeOptions nodeOptions) throws IOException {
         // init raft data path, it contains log,meta,snapshot
         FileUtils.forceMkdir(new File(dataPath));
 
@@ -48,7 +47,7 @@ public class CounterServer {
 
         // register business processor
         CounterService counterService = new CounterServiceImpl(this);
-        rpcServer.registerProcessor(new GetValueRequestProcessor(counterService));
+        rpcServer.registerProcessor(new GetRequestProcessor(counterService));
         rpcServer.registerProcessor(new SetAndGetRequestProcessor(counterService));
         // init state machine
         this.fsm = new CounterStateMachine();

@@ -116,7 +116,7 @@ public class CounterStateMachine extends StateMachineAdapter {
     public void onSnapshotSave(final SnapshotWriter writer, final Closure done) {
         final long currVal = this.value.get();
         Utils.runInThread(() -> {
-            final CounterSnapshotFile snapshot = new CounterSnapshotFile(writer.getPath() + File.separator + "data");
+            final SnapshotFile snapshot = new SnapshotFile(writer.getPath() + File.separator + "data");
             if (snapshot.save(currVal)) {
                 if (writer.addFile("data")) {
                     done.run(Status.OK());
@@ -144,7 +144,7 @@ public class CounterStateMachine extends StateMachineAdapter {
             LOG.error("Fail to find data file in {}", reader.getPath());
             return false;
         }
-        final CounterSnapshotFile snapshot = new CounterSnapshotFile(reader.getPath() + File.separator + "data");
+        final SnapshotFile snapshot = new SnapshotFile(reader.getPath() + File.separator + "data");
         try {
             this.value.set(snapshot.load());
             return true;

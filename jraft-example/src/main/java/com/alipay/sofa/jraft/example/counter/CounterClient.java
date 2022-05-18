@@ -30,7 +30,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 
 public class CounterClient {
-
+    private static int operationTimeout = 5000;
     public static void main(final String[] args) throws Exception {
         if (args.length != 5) {
             System.out.println("Usage : java com.alipay.sofa.jraft.example.counter.CounterClient {groupId} {conf} {action} {value} {intervals}");
@@ -87,8 +87,8 @@ public class CounterClient {
 
     private static void incrementAndGet(final CliClientServiceImpl cliClientService, final PeerId leader, final long delta, CountDownLatch latch) throws RemotingException, InterruptedException {
         SetAndGetRequest request = SetAndGetRequest.newBuilder().setDelta(delta).build();
-        cliClientService.getRpcClient().invokeAsync(leader.getEndpoint(), request, new InvokeCallback() {
 
+        InvokeCallback incCallback = new InvokeCallback() {
             @Override
             public void complete(Object result, Throwable err) {
                 if (err == null) {
@@ -104,19 +104,22 @@ public class CounterClient {
             public Executor executor() {
                 return null;
             }
-        }, 5000);
+        };
+
+        cliClientService.getRpcClient().invokeAsync(leader.getEndpoint(), request, incCallback, operationTimeout);
     }
 
     private static void decrementAndGet(final CliClientServiceImpl cliClientService, final PeerId leader, final long delta, CountDownLatch latch) throws RemotingException, InterruptedException {
         SetAndGetRequest request = SetAndGetRequest.newBuilder().setDelta(-delta).build();
-        cliClientService.getRpcClient().invokeAsync(leader.getEndpoint(), request, new InvokeCallback() {
 
+        InvokeCallback decCallback = new InvokeCallback() {
             @Override
             public void complete(Object result, Throwable err) {
                 if (err == null) {
                     latch.countDown();
                     System.out.println("operation : decrementAndGet, current counter value = " + result);
-                } else {
+                }
+                else {
                     err.printStackTrace();
                     latch.countDown();
                 }
@@ -125,14 +128,15 @@ public class CounterClient {
             public Executor executor() {
                 return null;
             }
-        }, 5000);
+        };
+        cliClientService.getRpcClient().invokeAsync(leader.getEndpoint(), request, decCallback, operationTimeout);
     }
 
     private static void get(final CliClientServiceImpl cliClientService, final PeerId leader, CountDownLatch latch) throws RemotingException, InterruptedException
     {
         GetValueRequest request = GetValueRequest.newBuilder().setReadOnlySafe(true).build();
 
-        InvokeCallback callback = new InvokeCallback() {
+        InvokeCallback getCallback = new InvokeCallback() {
             @Override
             public void complete(Object result, Throwable err) {
                 if (err == null) {
@@ -150,6 +154,6 @@ public class CounterClient {
             }
         };
 
-        cliClientService.getRpcClient().invokeAsync(leader.getEndpoint(), request, callback, 5000);
+        cliClientService.getRpcClient().invokeAsync(leader.getEndpoint(), request, getCallback, operationTimeout);
     }
 }

@@ -21,11 +21,11 @@ import com.alipay.sofa.jraft.rpc.RpcContext;
 import com.alipay.sofa.jraft.example.counter.CounterOutter.GetValueRequest;
 import com.alipay.sofa.jraft.rpc.RpcProcessor;
 
-public class GetValueRequestProcessor implements RpcProcessor<GetValueRequest> {
+public class GetRequestProcessor implements RpcProcessor<GetValueRequest> {
 
     private final CounterService counterService;
 
-    public GetValueRequestProcessor(CounterService counterService) {
+    public GetRequestProcessor(CounterService counterService) {
         super();
         this.counterService = counterService;
     }
