@@ -14,42 +14,56 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alipay.sofa.jraft.example.finalProjectTask1;
+package com.alipay.sofa.jraft.example.finalProjectTask1.rpc;
 
-import com.alipay.sofa.jraft.example.finalProjectTask1.CounterOutter;
 import com.alipay.sofa.jraft.rpc.RpcServer;
 import com.alipay.sofa.jraft.util.RpcFactoryHelper;
 import com.google.protobuf.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.alipay.sofa.jraft.example.finalProjectTask1.rpc.TradingOutter.CreateAccountRequest;
+import com.alipay.sofa.jraft.example.finalProjectTask1.rpc.TradingOutter.SendPaymentRequest;
+import com.alipay.sofa.jraft.example.finalProjectTask1.rpc.TradingOutter.QueryRequest;
+import com.alipay.sofa.jraft.example.finalProjectTask1.rpc.TradingOutter.ValueResponse;
 
 import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
-public class CounterGrpcHelper {
+public class GrpcHelper {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CounterGrpcHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GrpcHelper.class);
 
     public static RpcServer     rpcServer;
 
     public static void initGRpc() {
-        if ("com.alipay.sofa.jraft.rpc.impl.GrpcRaftRpcFactory".equals(RpcFactoryHelper.rpcFactory().getClass()
-            .getName())) {
-            RpcFactoryHelper.rpcFactory().registerProtobufSerializer(CounterOutter.GetValueRequest.class.getName(),
-                CounterOutter.GetValueRequest.getDefaultInstance());
+        if ("com.alipay.sofa.jraft.rpc.impl.GrpcRaftRpcFactory".equals(RpcFactoryHelper.rpcFactory().getClass().getName())) {
             RpcFactoryHelper.rpcFactory().registerProtobufSerializer(
-                CounterOutter.SetAndGetRequest.class.getName(),
-                CounterOutter.SetAndGetRequest.getDefaultInstance());
-            RpcFactoryHelper.rpcFactory().registerProtobufSerializer(CounterOutter.ValueResponse.class.getName(),
-                CounterOutter.ValueResponse.getDefaultInstance());
+                    CreateAccountRequest.class.getName(),
+                    CreateAccountRequest.getDefaultInstance()
+            );
+
+            RpcFactoryHelper.rpcFactory().registerProtobufSerializer(
+                    SendPaymentRequest.class.getName(),
+                    SendPaymentRequest.getDefaultInstance()
+            );
+
+            RpcFactoryHelper.rpcFactory().registerProtobufSerializer(
+                    QueryRequest.class.getName(),
+                    QueryRequest.getDefaultInstance()
+            );
+
+            RpcFactoryHelper.rpcFactory().registerProtobufSerializer(
+                    ValueResponse.class.getName(),
+                    ValueResponse.getDefaultInstance()
+            );
 
             try {
                 Class<?> clazz = Class.forName("com.alipay.sofa.jraft.rpc.impl.MarshallerHelper");
                 Method registerRespInstance = clazz.getMethod("registerRespInstance", String.class, Message.class);
-                registerRespInstance.invoke(null, CounterOutter.GetValueRequest.class.getName(),
-                    CounterOutter.ValueResponse.getDefaultInstance());
-                registerRespInstance.invoke(null, CounterOutter.SetAndGetRequest.class.getName(),
-                    CounterOutter.ValueResponse.getDefaultInstance());
+                registerRespInstance.invoke(null, CreateAccountRequest.class.getName(), CreateAccountRequest.getDefaultInstance());
+                registerRespInstance.invoke(null, SendPaymentRequest.class.getName(), SendPaymentRequest.getDefaultInstance());
+                registerRespInstance.invoke(null, QueryRequest.class.getName(), QueryRequest.getDefaultInstance());
+                registerRespInstance.invoke(null, SendPaymentRequest.class.getName(), SendPaymentRequest.getDefaultInstance());
             } catch (Exception e) {
                 LOG.error("Failed to init grpc server", e);
             }
@@ -57,7 +71,7 @@ public class CounterGrpcHelper {
     }
 
     public static void setRpcServer(RpcServer rpcServer) {
-        CounterGrpcHelper.rpcServer = rpcServer;
+        GrpcHelper.rpcServer = rpcServer;
     }
 
     public static void blockUntilShutdown() {

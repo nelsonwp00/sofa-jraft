@@ -17,20 +17,18 @@
 package com.alipay.sofa.jraft.example.finalProjectTask1;
 
 import com.alipay.sofa.jraft.Closure;
-import com.alipay.sofa.jraft.example.finalProjectTask1.CounterOperation;
-import com.alipay.sofa.jraft.example.finalProjectTask1.CounterOutter.ValueResponse;
+import com.alipay.sofa.jraft.example.finalProjectTask1.rpc.TradingOutter.ValueResponse;
 
-public abstract class CounterClosure implements Closure {
+public abstract class TradingClosure implements Closure {
+    private ValueResponse valueResponse;
+    private TradingOperation tradingOperation;
 
-    private ValueResponse    valueResponse;
-    private CounterOperation counterOperation;
-
-    public void setCounterOperation(CounterOperation counterOperation) {
-        this.counterOperation = counterOperation;
+    public void setCounterOperation(TradingOperation tradingOperation) {
+        this.tradingOperation = tradingOperation;
     }
 
-    public CounterOperation getCounterOperation() {
-        return counterOperation;
+    public TradingOperation getCounterOperation() {
+        return tradingOperation;
     }
 
     public ValueResponse getValueResponse() {
@@ -43,6 +41,7 @@ public abstract class CounterClosure implements Closure {
 
     protected void failure(final String errorMsg, final String redirect) {
         final ValueResponse response = ValueResponse.newBuilder()
+                .setBalance(-1)
                 .setSuccess(false)
                 .setErrorMsg(errorMsg)
                 .setRedirect(redirect)
@@ -51,9 +50,9 @@ public abstract class CounterClosure implements Closure {
         setValueResponse(response);
     }
 
-    protected void success(final long value) {
+    protected void success(final int balance) {
         final ValueResponse response = ValueResponse.newBuilder()
-                .setValue(value)
+                .setBalance(balance)
                 .setSuccess(true)
                 .build();
 

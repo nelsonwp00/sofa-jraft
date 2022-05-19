@@ -22,10 +22,6 @@ import com.alipay.sofa.jraft.Status;
 import com.alipay.sofa.jraft.closure.ReadIndexClosure;
 import com.alipay.sofa.jraft.entity.Task;
 import com.alipay.sofa.jraft.error.RaftError;
-import com.alipay.sofa.jraft.example.finalProjectTask1.CounterClosure;
-import com.alipay.sofa.jraft.example.finalProjectTask1.CounterOperation;
-import com.alipay.sofa.jraft.example.finalProjectTask1.CounterServer;
-import com.alipay.sofa.jraft.example.finalProjectTask1.CounterService;
 import com.alipay.sofa.jraft.rhea.StoreEngineHelper;
 import com.alipay.sofa.jraft.rhea.options.StoreEngineOptions;
 import com.alipay.sofa.jraft.util.BytesUtil;
@@ -36,14 +32,14 @@ import org.slf4j.LoggerFactory;
 import java.nio.ByteBuffer;
 import java.util.concurrent.Executor;
 
-public class CounterServiceImpl implements CounterService {
-    private static final Logger LOG = LoggerFactory.getLogger(CounterServiceImpl.class);
+public class TradingServiceImpl implements TradingService {
+    private static final Logger LOG = LoggerFactory.getLogger(TradingServiceImpl.class);
 
-    private final com.alipay.sofa.jraft.example.finalProjectTask1.CounterServer counterServer;
+    private final Server server;
     private final Executor      readIndexExecutor;
 
-    public CounterServiceImpl(CounterServer counterServer) {
-        this.counterServer = counterServer;
+    public TradingServiceImpl(Server server) {
+        this.server = server;
         this.readIndexExecutor = createReadIndexExecutor();
     }
 
@@ -52,52 +48,34 @@ public class CounterServiceImpl implements CounterService {
         return StoreEngineHelper.createReadIndexExecutor(opts.getReadIndexCoreThreads());
     }
 
-    @Override
-    public void get(final boolean readOnlySafe, final com.alipay.sofa.jraft.example.finalProjectTask1.CounterClosure closure) {
-        if(!readOnlySafe){
-            closure.success(getValue());
-            closure.run(Status.OK());
-            return;
-        }
-
-        this.counterServer.getNode().readIndex(BytesUtil.EMPTY_BYTES, new ReadIndexClosure() {
-            @Override
-            public void run(Status status, long index, byte[] reqCtx) {
-                if(status.isOk()){
-                    closure.success(getValue());
-                    closure.run(Status.OK());
-                    return;
-                }
-                CounterServiceImpl.this.readIndexExecutor.execute(() -> {
-                    if(isLeader()){
-                        LOG.debug("Fail to get value with 'ReadIndex': {}, try to applying to the state machine.", status);
-                        applyOperation(com.alipay.sofa.jraft.example.finalProjectTask1.CounterOperation.createGet(), closure);
-                    }else {
-                        handlerNotLeaderError(closure);
-                    }
-                });
-            }
-        });
-    }
-
     private boolean isLeader() {
-        return this.counterServer.getFsm().isLeader();
+        return this.server.getFsm().isLeader();
     }
 
     private long getValue() {
-        return this.counterServer.getFsm().getValue();
+        return this.server.getFsm().getValue();
     }
 
     private String getRedirect() {
-        return this.counterServer.redirect().getRedirect();
+        return this.server.redirect().getRedirect();
     }
 
     @Override
-    public void setAndGet(final long delta, final com.alipay.sofa.jraft.example.finalProjectTask1.CounterClosure closure) {
-        applyOperation(com.alipay.sofa.jraft.example.finalProjectTask1.CounterOperation.createSet(delta), closure);
+    public void createAccount(String accountID, int balance, TradingClosure closure) {
+        applyOperation(TradingOperation.createCreate_Account(accountID, balance), closure);
     }
 
-    private void applyOperation(final CounterOperation op, final com.alipay.sofa.jraft.example.finalProjectTask1.CounterClosure closure) {
+    @Override
+    public void sendPayment(String fromAccountID, String toAccountID, int amount, TradingClosure closure) {
+        applyOperation(TradingOperation.createSend_Payment(fromAccountID, toAccountID, amount), closure);
+    }
+
+    @Override
+    public void queryAccount(String accountID, TradingClosure closure) {
+        applyOperation(TradingOperation.createQuery_Account(accountID), closure);
+    }
+
+    private void applyOperation(final TradingOperation op, final TradingClosure closure) {
         if (!isLeader()) {
             handlerNotLeaderError(closure);
             return;
@@ -108,8 +86,9 @@ public class CounterServiceImpl implements CounterService {
             final Task task = new Task();
             task.setData(ByteBuffer.wrap(SerializerManager.getSerializer(SerializerManager.Hessian2).serialize(op)));
             task.setDone(closure);
-            this.counterServer.getNode().apply(task);
-        } catch (CodecException e) {
+            this.server.getNode().apply(task);
+        }
+        catch (CodecException e) {
             String errorMsg = "Fail to encode CounterOperation";
             LOG.error(errorMsg, e);
             closure.failure(errorMsg, StringUtils.EMPTY);
@@ -117,7 +96,7 @@ public class CounterServiceImpl implements CounterService {
         }
     }
 
-    private void handlerNotLeaderError(final CounterClosure closure) {
+    private void handlerNotLeaderError(final TradingClosure closure) {
         closure.failure("Not leader.", getRedirect());
         closure.run(new Status(RaftError.EPERM, "Not leader"));
     }

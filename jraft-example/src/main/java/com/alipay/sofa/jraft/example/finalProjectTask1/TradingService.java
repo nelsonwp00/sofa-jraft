@@ -16,19 +16,10 @@
  */
 package com.alipay.sofa.jraft.example.finalProjectTask1;
 
-import com.alipay.sofa.jraft.example.finalProjectTask1.CounterClosure;
+public interface TradingService {
+    void createAccount(final String accountID, final int balance, final TradingClosure closure);
 
-public interface CounterService {
+    void sendPayment(final String fromAccountID, final String toAccountID, final int amount, final TradingClosure closure);
 
-    /**
-     * Get current value from counter
-     *
-     * Provide consistent reading if {@code readOnlySafe} is true.
-     */
-    void get(final boolean readOnlySafe, final com.alipay.sofa.jraft.example.finalProjectTask1.CounterClosure closure);
-
-    /**
-     * Add delta to counter then get value
-     */
-    void setAndGet(final long delta, final CounterClosure closure);
+    void queryAccount(final String accountID, final TradingClosure closure);
 }

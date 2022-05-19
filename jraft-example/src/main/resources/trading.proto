@@ -1,0 +1,29 @@
+syntax = "proto2";
+
+package jraft;
+
+option java_package = "com.alipay.sofa.jraft.example.finalProjectTask1.rpc";
+option java_outer_classname = "TradingOutter";
+
+message CreateAccountRequest {
+  //repeated bool readOnlySafe = 1;
+  required string accountID = 1;
+  optional int32 balance = 2;
+}
+
+message SendPaymentRequest {
+  required string fromAccountID = 1;
+  required string toAccountID = 2;
+  required int32 amount = 3;
+}
+
+message QueryRequest {
+  required string accountID = 1;
+}
+
+message ValueResponse {
+  required int32 balance = 1; // return the account balance to the request sender
+  required bool success = 2;
+  optional string redirect = 3;
+  optional string errorMsg = 4;
+}

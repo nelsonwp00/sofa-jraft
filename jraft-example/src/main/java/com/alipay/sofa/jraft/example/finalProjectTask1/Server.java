@@ -20,9 +20,11 @@ import com.alipay.sofa.jraft.Node;
 import com.alipay.sofa.jraft.RaftGroupService;
 import com.alipay.sofa.jraft.conf.Configuration;
 import com.alipay.sofa.jraft.entity.PeerId;
-import com.alipay.sofa.jraft.example.finalProjectTask1.CounterGrpcHelper;
-import com.alipay.sofa.jraft.example.finalProjectTask1.CounterOutter.ValueResponse;
-import com.alipay.sofa.jraft.example.finalProjectTask1.*;
+import com.alipay.sofa.jraft.example.finalProjectTask1.rpc.CreateAccountRequestProcessor;
+import com.alipay.sofa.jraft.example.finalProjectTask1.rpc.GrpcHelper;
+import com.alipay.sofa.jraft.example.finalProjectTask1.rpc.QueryRequestProcessor;
+import com.alipay.sofa.jraft.example.finalProjectTask1.rpc.SendPaymentRequestProcessor;
+import com.alipay.sofa.jraft.example.finalProjectTask1.rpc.TradingOutter.ValueResponse;
 import com.alipay.sofa.jraft.option.NodeOptions;
 import com.alipay.sofa.jraft.rpc.RaftRpcServerFactory;
 import com.alipay.sofa.jraft.rpc.RpcServer;
@@ -31,13 +33,13 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 
-public class CounterServer {
+public class Server {
 
     private RaftGroupService    raftGroupService;
     private Node                node;
-    private CounterStateMachine fsm;
+    private StateMachine fsm;
 
-    public CounterServer(final String dataPath, final String groupId, final PeerId serverId, final NodeOptions nodeOptions) throws IOException {
+    public Server(final String dataPath, final String groupId, final PeerId serverId, final NodeOptions nodeOptions) throws IOException {
         // init raft data path, it contains log,meta,snapshot
         FileUtils.forceMkdir(new File(dataPath));
 
@@ -48,11 +50,13 @@ public class CounterServer {
         com.alipay.sofa.jraft.example.counter.CounterGrpcHelper.setRpcServer(rpcServer);
 
         // register business processor
-        CounterService counterService = new CounterServiceImpl(this);
-        rpcServer.registerProcessor(new GetRequestProcessor(counterService));
-        rpcServer.registerProcessor(new SetAndGetRequestProcessor(counterService));
+        TradingService tradingService = new TradingServiceImpl(this);
+        rpcServer.registerProcessor(new CreateAccountRequestProcessor(tradingService));
+        rpcServer.registerProcessor(new SendPaymentRequestProcessor(tradingService));
+        rpcServer.registerProcessor(new QueryRequestProcessor(tradingService));
+
         // init state machine
-        this.fsm = new CounterStateMachine();
+        this.fsm = new StateMachine();
         // set fsm to nodeOptions
         nodeOptions.setFsm(this.fsm);
         // set storage path (log,meta,snapshot)
@@ -68,7 +72,7 @@ public class CounterServer {
         this.node = this.raftGroupService.start();
     }
 
-    public CounterStateMachine getFsm() {
+    public StateMachine getFsm() {
         return this.fsm;
     }
 
@@ -128,10 +132,9 @@ public class CounterServer {
         nodeOptions.setInitialConf(initConf);
 
         // start raft server
-        final CounterServer counterServer = new CounterServer(dataPath, groupId, serverId, nodeOptions);
-        System.out.println("Started counter server at port:"
-                           + counterServer.getNode().getNodeId().getPeerId().getPort());
+        final Server server = new Server(dataPath, groupId, serverId, nodeOptions);
+        System.out.println("Started counter server at port:" + server.getNode().getNodeId().getPeerId().getPort());
         // GrpcServer need block to prevent process exit
-        CounterGrpcHelper.blockUntilShutdown();
+        GrpcHelper.blockUntilShutdown();
     }
 }
